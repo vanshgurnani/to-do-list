@@ -25,7 +25,7 @@ app.get("/", async function(req, res) {
     };
     let day = today.toLocaleDateString("en-US", option);
 
-    res.render("1", {
+    res.render("1.ejs", {
       dayk: day,
       newlist: allTodos,
     });
