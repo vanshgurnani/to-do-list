@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { Todo } = require('./db.js');
+const ejs = require("ejs");
 
 
 const app = express();
@@ -13,7 +14,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
 
-app.get("/", async function(req, res) {
+app.get("/", async function (req, res) {
   try {
     const allTodos = await Todo.find(); // Fetch all todo items from the database
 
@@ -25,9 +26,13 @@ app.get("/", async function(req, res) {
     };
     let day = today.toLocaleDateString("en-US", option);
 
-    res.render("1", {
-      dayk: day,
-      newlist: allTodos,
+    // Use ejs.renderFile to render the view and send it as an HTML response
+    ejs.renderFile(__dirname + "/views/1.ejs", { dayk: day, newlist: allTodos }, function (err, html) {
+      if (err) {
+        console.error('Error rendering EJS view:', err);
+        return res.status(500).send('Error rendering EJS view');
+      }
+      res.send(html); // Send the rendered HTML as the response
     });
   } catch (err) {
     console.error('Error fetching todos:', err);
