@@ -9,7 +9,7 @@ const app = express();
 
 app.set('view engine',"ejs");
 
-app.use(express.static("public"));
+app.use(express.static("public", { "content-type": "text/css" }));
 app.use(bodyParser.urlencoded({extended:true}));
 
 
