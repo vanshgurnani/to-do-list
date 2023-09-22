@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-// Connection URL
+// Connection URL (update with your own credentials and cluster URL)
 const url = 'mongodb+srv://gurnanivansh57:iz64rqtBBQss8iQ7@cluster101.nuwewcc.mongodb.net/tododb?retryWrites=true&w=majority';
-const dbName = 'tododb';
-const collectionName = 'todos';
+
+// Replace <username>, <password>, and <cluster-url> with your actual MongoDB credentials
 
 // Connect to the MongoDB server
-mongoose.connect(`${url}/${dbName}`, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
   })
@@ -20,7 +20,7 @@ const todoSchema = new mongoose.Schema({
 });
 
 // Create a Mongoose model for the todos collection
-const Todo = mongoose.model('Todo', todoSchema, collectionName);
+const Todo = mongoose.model('Todo', todoSchema);
 
 // Export the mongoose connection and Todo model
 module.exports = {
